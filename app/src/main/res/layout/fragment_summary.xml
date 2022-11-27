@@ -15,9 +15,20 @@
      limitations under the License.
 -->
 <!-- Layout for order summary -->
+
+<!-- In fragment_summary.xml file, add a <data> tag inside the root <layout> tag. Add a layout variable
+called viewModel of the type com.example.cupcake.model.OrderViewModel. Make sure the package name
+in the type attribute matches with the package name of the shared view model class, OrderViewModel
+in your app. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SummaryFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.cupcake.model.OrderViewModel" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,6 +42,12 @@
 
             <!-- Group the order details into a single ViewGroup and set focusable = true,
                  so all fields will be read aloud together by the accessibility service -->
+
+            <!-- In fragment_summary.xml, read from the view model to update the screen with the
+            order summary details. Update the quantity, flavor, and date TextViews by adding the
+            following text attributes. Quantity is of the type Int, so you need to convert it to a
+            string. -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/order_summary_margin"
+                    android:text="@{viewModel.quantity.toString()}"
                     tools:text="6 cupcakes" />
 
                 <View
@@ -75,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/order_summary_margin"
+                    android:text="@{viewModel.flavor}"
                     tools:text="Chocolate" />
 
                 <View
@@ -98,6 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/order_summary_margin"
+                    android:text="@{viewModel.date}"
                     tools:text="Sunday" />
 
                 <View

@@ -51,10 +51,14 @@ class FlavorFragment : Fragment() {
         return fragmentBinding.root
     }
 
+    // 3. In the FlavorFragment class, inside onViewCreated(), bind the view model instance with the
+    // shared view model instance in the layout. Add the following code inside the binding?.apply
+    // block.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+            viewModel = sharedViewModel
             nextButton.setOnClickListener { goToNextScreen() }
         }
     }

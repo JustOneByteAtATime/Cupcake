@@ -15,10 +15,37 @@
      limitations under the License.
 -->
 <!-- Layout for selecting a pickup date -->
+
+<!-- In fragment_pickup.xml file, add a <data> tag inside the root <layout> tag. Add a layout variable
+called viewModel of the type com.example.cupcake.model.OrderViewModel. Make sure the package name
+in the type attribute matches with the package name of the shared view model class, OrderViewModel
+in your app. -->
+
+<!--
+    In fragment_pickup.xml, for the option0 radio button, use the new layout variable, viewModel to
+    set the checked attribute based on the date value in the view model. Compare the viewModel.date
+    property with the first string in the dateOptions list, which is the current date. Use the
+    equals function to compare and the final binding expression looks like the following:
+
+@{viewModel.date.equals(viewModel.dateOptions[0])}
+
+    For the same radio button, add an event listener using listener binding to the onClick attribute.
+    When this radio button option is clicked, make a call to setDate() on viewModel, passing in
+    dateOptions[0].
+    For the same radio button, set the text attribute value to the first string in the dateOptions
+    list.
+ -->
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".PickupFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.cupcake.model.OrderViewModel" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -41,25 +68,41 @@
                     android:id="@+id/option0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Thursday" />
+                    tools:text="Thursday"
+                    android:checked="@{viewModel.date.equals(viewModel.dateOptions[0])}"
+                    android:onClick="@{() -> viewModel.setDate(viewModel.dateOptions[0])}"
+                    android:text="@{viewModel.dateOptions[0]}"
+                    />
 
                 <RadioButton
                     android:id="@+id/option1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Friday" />
+                    tools:text="Friday"
+                    android:checked="@{viewModel.date.equals(viewModel.dateOptions[1])}"
+                    android:onClick="@{() -> viewModel.setDate(viewModel.dateOptions[1])}"
+                    android:text="@{viewModel.dateOptions[1]}"
+                    />
 
                 <RadioButton
                     android:id="@+id/option2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Saturday" />
+                    tools:text="Saturday"
+                    android:checked="@{viewModel.date.equals(viewModel.dateOptions[2])}"
+                    android:onClick="@{() -> viewModel.setDate(viewModel.dateOptions[2])}"
+                    android:text="@{viewModel.dateOptions[2]}"
+                    />
 
                 <RadioButton
                     android:id="@+id/option3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Sunday" />
+                    tools:text="Sunday"
+                    android:checked="@{viewModel.date.equals(viewModel.dateOptions[3])}"
+                    android:onClick="@{() -> viewModel.setDate(viewModel.dateOptions[3])}"
+                    android:text="@{viewModel.dateOptions[3]}"
+                    />
             </RadioGroup>
 
             <View
