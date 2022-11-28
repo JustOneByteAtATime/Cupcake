@@ -54,12 +54,28 @@ class FlavorFragment : Fragment() {
     // 3. In the FlavorFragment class, inside onViewCreated(), bind the view model instance with the
     // shared view model instance in the layout. Add the following code inside the binding?.apply
     // block.
+
+    // Calc Price fr Order Details - Set Lifecycle owner to observe LiveData -
+    // 1. In the FlavorFragment, PickupFragment, SummaryFragment classes, inside the onViewCreated()
+    // method, add the following in the binding?.apply block. This will set the lifecycle owner on
+    // the binding object. By setting the lifecycle owner, the app will be able to observe LiveData
+    // objects. lifecycleOwner = viewLifecycleOwner
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//    In the rest of the fragment classes, in onViewCreated() methods, delete the code that manually
+//    sets the click listener on the buttons.
+//    In the onViewCreated() methods bind the fragment data variable with the fragment instance. You
+//    will use this keyword differently here, because inside the binding?.apply block, the keyword
+//    this refers to the binding instance, not the fragment instance. Use @ and explicitly specify
+//    the fragment class name, for example this@FlavorFragment. The completed onViewCreated()
+//    methods should look as follows:
+
         binding?.apply {
             viewModel = sharedViewModel
-            nextButton.setOnClickListener { goToNextScreen() }
+            lifecycleOwner = viewLifecycleOwner
+            flavorFragment = this@FlavorFragment
+//            nextButton.setOnClickListener { goToNextScreen() }
         }
     }
 

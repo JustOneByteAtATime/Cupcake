@@ -36,6 +36,9 @@ in your app. -->
     list.
  -->
 
+<!-- Now make a similar change for the pickup and summary fragments. In fragment_pickup.xml and
+fragment_summary.xml layouts, modify the text views to use the viewModel price property as well. -->
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -45,6 +48,9 @@ in your app. -->
         <variable
             name="viewModel"
             type="com.example.cupcake.model.OrderViewModel" />
+        <variable
+            name="pickupFragment"
+            type="com.example.cupcake.PickupFragment" />
     </data>
 
     <ScrollView
@@ -118,6 +124,7 @@ in your app. -->
 
             <TextView
                 android:id="@+id/subtotal"
+                android:text="@{@string/subtotal_price(viewModel.price)}"
                 style="@style/Widget.Cupcake.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,6 +135,7 @@ in your app. -->
 
             <Button
                 android:id="@+id/next_button"
+                android:onClick="@{() -> pickupFragment.goToNextScreen()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/side_margin"

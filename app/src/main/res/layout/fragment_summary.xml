@@ -20,6 +20,9 @@
 called viewModel of the type com.example.cupcake.model.OrderViewModel. Make sure the package name
 in the type attribute matches with the package name of the shared view model class, OrderViewModel
 in your app. -->
+
+<!-- Now make a similar change for the pickup and summary fragments. In fragment_pickup.xml and
+fragment_summary.xml layouts, modify the text views to use the viewModel price property as well. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SummaryFragment">
@@ -28,6 +31,9 @@ in your app. -->
         <variable
             name="viewModel"
             type="com.example.cupcake.model.OrderViewModel" />
+        <variable
+            name="summaryFragment"
+            type="com.example.cupcake.SummaryFragment" />
     </data>
 
     <ScrollView
@@ -130,6 +136,7 @@ in your app. -->
 
                 <TextView
                     android:id="@+id/total"
+                    android:text="@{@string/total_price(viewModel.price)}"
                     style="@style/Widget.Cupcake.TextView.FinalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,6 +148,7 @@ in your app. -->
 
             <Button
                 android:id="@+id/send_button"
+                android:onClick="@{() -> summaryFragment.sendOrder()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/side_margin"

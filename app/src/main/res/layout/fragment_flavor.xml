@@ -37,6 +37,19 @@ lambda expression with no parameters and make a call to the viewModel.setFlavor(
 in the corresponding flavor string resource.
 -->
 
+<!-- Calculate Price from Order Details - 3. Within each fragment layout, use the viewModel variable
+to set the price if it's shown in the layout. Start with modifying the fragment_flavor.xml file. For
+the subtotal text view, set the value of the android:text attribute to be
+"@{@string/subtotal_price(viewModel.price)}". This data binding layout expression uses the string
+resource @string/subtotal_price and passes in a parameter, which is the price from the view model,
+so the output will show Subtotal 12.0 for example. -->
+
+<!-- Setup Click listeners 5. Similarly add the above data variable in other layouts as well to bind
+ the fragment instance, fragment_flavor.xml, fragment_pickup.xml, and fragment_summary.xml. -->
+
+<!-- Setup Click listeners 8. Similarly in the other layout files, add listener binding expressions
+to the onClick attribute for the buttons.-->
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -46,6 +59,9 @@ in the corresponding flavor string resource.
         <variable
             name="viewModel"
             type="com.example.cupcake.model.OrderViewModel" />
+        <variable
+            name="flavorFragment"
+            type="com.example.cupcake.FlavorFragment" />
     </data>
 
     <ScrollView
@@ -123,6 +139,7 @@ in the corresponding flavor string resource.
 
             <TextView
                 android:id="@+id/subtotal"
+                android:text="@{@string/subtotal_price(viewModel.price)}"
                 style="@style/Widget.Cupcake.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,6 +150,7 @@ in the corresponding flavor string resource.
 
             <Button
                 android:id="@+id/next_button"
+                android:onClick="@{() -> flavorFragment.goToNextScreen()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/side_margin"

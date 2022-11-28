@@ -50,6 +50,11 @@ class SummaryFragment : Fragment() {
     }
 // In the CURRENT class, inside onViewCreated(), bind the view model instance with the shared view
 // model instance in the layout. Add the following code inside the binding?.apply block
+
+    // 1. In the FlavorFragment, PickupFragment, SummaryFragment classes, inside the onViewCreated()
+    // method, add the following in the binding?.apply block. This will set the lifecycle owner on
+    // the binding object. By setting the lifecycle owner, the app will be able to observe LiveData
+    // objects. lifecycleOwner = viewLifecycleOwner
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,7 +62,9 @@ class SummaryFragment : Fragment() {
             // In SummaryFragment, in onViewCreated(), make sure binding.viewModel is initialized.
             // CHECK!
             viewModel = sharedViewModel
-            sendButton.setOnClickListener { sendOrder() }
+            lifecycleOwner = viewLifecycleOwner
+            summaryFragment = this@SummaryFragment
+//            sendButton.setOnClickListener { sendOrder() }
         }
     }
 

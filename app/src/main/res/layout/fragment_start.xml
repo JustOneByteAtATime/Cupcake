@@ -14,11 +14,26 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
+<!-- 9. Setup Click listeners using listener binding
+1. In the layout file fragment_start.xml, add a data variable called startFragment of the type
+com.example.cupcake.StartFragment. Make sure the package name of the fragment matches with your
+app's package name. -->
+
+<!-- 3. In fragment_start.xml, add event listeners using listener binding to the onClick attribute
+for the buttons, make a call to orderCupcake() on startFragment, passing in the number of cupcakes. -->
+
 <!-- Layout for starting a new order -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".StartFragment">
+
+    <data>
+        <variable
+            name="startFragment"
+            type="com.example.cupcake.StartFragment" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,6 +65,7 @@
 
             <Button
                 android:id="@+id/order_one_cupcake"
+                android:onClick="@{() -> startFragment.orderCupcake(1)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -59,6 +75,7 @@
 
             <Button
                 android:id="@+id/order_six_cupcakes"
+                android:onClick="@{() -> startFragment.orderCupcake(6)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -68,6 +85,7 @@
 
             <Button
                 android:id="@+id/order_twelve_cupcakes"
+                android:onClick="@{() -> startFragment.orderCupcake(12)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
