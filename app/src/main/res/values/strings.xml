@@ -13,6 +13,15 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
+<!-- Instead, it should say 1 cupcake (no plural). If you want to choose whether the word cupcake
+or cupcakes is used based on the quantity value, then you can use something called quantity strings
+ in Android. By declaring a plurals resource, you can specify different string resources to use
+ based on what the quantity is, for example in the singular or plural case.-->
+
+<!-- Before going to your Kotlin code, update the order_details string resource in strings.xml so
+that the plural version of cupcakes is no longer hardcoded into it. -->
+
 <resources>
     <string name="app_name">Cupcake</string>
     <string name="order_cupcakes">Order Cupcakes</string>
@@ -37,6 +46,10 @@
     <string name="subtotal_price">Subtotal %s</string>
     <string name="total_price">Total %s</string>
     <string name="new_cupcake_order">New Cupcake Order</string>
-    <string name="order_details">Quantity: %1$s cupcakes \n Flavor: %2$s \nPickup date: %3$s \n
+    <string name="order_details">Quantity: %1$s \n Flavor: %2$s \nPickup date: %3$s \n
         Total: %4$s \n\n Thank you!</string>
+    <plurals name="cupcakes">
+        <item quantity="one">%d cupcake</item>
+        <item quantity="other">%d cupcakes</item>
+    </plurals>
 </resources>

@@ -15,6 +15,7 @@
  */
 package com.example.cupcake
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,8 +73,64 @@ class SummaryFragment : Fragment() {
     /**
      * Submit the order by sharing out the order details to another app via an implicit intent.
      */
+    // Send the order - In SummaryFragment.kt modify the sendOrder() method. Remove the existing
+    // Toast message.
+    // Within the sendOrder() method, construct the order summary text. Create the formatted
+    // order_details string by getting the order quantity, flavor, date, and price from the shared
+    // view model.
+
+    // Send the order - 8. In the SummaryFragment class, update your sendOrder() method to use the
+    // new quantity string. It would be easiest to first figure out the quantity from the view model
+    // and store that in a variable. Since quantity in the view model is of type LiveData<Int>, it's
+    // possible that sharedViewModel.quantity.value is null. If it is null, then use 0 as the
+    // default value for numberOfCupcakes.
+
     fun sendOrder() {
-        Toast.makeText(activity, "Send Order", Toast.LENGTH_SHORT).show()
+        val numberOfCupcakes = sharedViewModel.quantity.value ?: 0
+
+        val orderSummary = getString(
+            // 9. Then format the order_details string as you did before. Instead of passing in
+            // numberOfCupcakes as the quantity argument directly, create the formatted cupcakes
+            // string with resources.getQuantityString(R.plurals.cupcakes, numberOfCupcakes,
+            // numberOfCupcakes).
+
+            R.string.order_details,
+            resources.getQuantityString(R.plurals.cupcakes, numberOfCupcakes, numberOfCupcakes),
+            sharedViewModel.flavor.value.toString(),
+            sharedViewModel.date.value.toString(),
+            sharedViewModel.price.value.toString()
+        )
+
+
+        // Still within the sendOrder() method, create an implicit intent for sharing the order to
+    // another app. See the documentation for how to create an email intent.
+    // Specify Intent.ACTION_SEND for the intent action, set type to "text/plain" and include intent
+    // extras for the email subject (Intent.EXTRA_SUBJECT) and email body (Intent.EXTRA_TEXT).
+    // Import android.content.Intent if needed.
+        val intent = Intent(Intent.ACTION_SEND)
+            .setType("text/plain")
+            .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.new_cupcake_order))
+            .putExtra(Intent.EXTRA_TEXT, orderSummary)
+// As a bonus tip, if you adapt this app to your own use case, you could pre-populate the recipient
+    // of the email to be the email address of the cupcake shop. In the intent, you would specify
+    // the email recipient with intent extra Intent.EXTRA_EMAIL.
+
+        // Since this is an implicit intent, you don't need to know ahead of time which specific
+    // component or app will handle this intent. The user will decide which app they want to use to
+    // fulfill the intent. However, before launching an activity with this intent, check to see if
+    // there's an app that could even handle it. This check will prevent the Cupcake app from
+    // crashing if there's no app to handle the intent, making your code safer.
+
+        // Perform this check by accessing the PackageManager, which has information about what app
+        // packages are installed on the device. The PackageManager can be accessed via the fragment's
+        // activity, as long as the activity and packageManager are not null. Call the PackageManager's
+        // resolveActivity() method with the intent you created. If the result is not null, then it is
+        // safe to call startActivity() with your intent.
+        if (activity?.packageManager?.resolveActivity(intent, 0) != null) {
+            // Start a new activity with the given intent (this may open the share dialog on a
+            // device if multiple apps can handle this intent)
+            startActivity(intent)
+        }
     }
 
     /**
