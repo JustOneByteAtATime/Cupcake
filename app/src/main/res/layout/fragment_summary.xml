@@ -154,6 +154,17 @@ fragment_summary.xml layouts, modify the text views to use the viewModel price p
                 android:layout_marginTop="@dimen/side_margin"
                 android:text="@string/send" />
 
+            <Button
+                android:id="@+id/cancel_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_between_elements"
+                android:text="@string/cancel"
+                android:onClick="@{() -> summaryFragment.cancelOrder()}"
+                />
+
+
         </LinearLayout>
     </ScrollView>
 </layout>

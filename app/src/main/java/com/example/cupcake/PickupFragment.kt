@@ -86,4 +86,11 @@ class PickupFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+    // Repeat the same process for the PickupFragment. Add a cancelOrder() method to the fragment
+// class, which resets the order and navigates from the PickupFragment to the StartFragment.
+    fun cancelOrder() {
+        sharedViewModel.resetOrder()
+        findNavController().navigate(R.id.action_pickupFragment_to_startFragment)
+    }
+
 }

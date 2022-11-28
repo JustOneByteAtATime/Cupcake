@@ -99,4 +99,14 @@ class FlavorFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+    // Add this cancelOrder() method to FlavorFragment. When presented with the flavor options, if
+    // the user decides to cancel their order, then clear out the view model by calling
+    // sharedViewModel.resetOrder(). Then navigate back to the StartFragment using the navigation
+    // action with ID R.id.action_flavorFragment_to_startFragment.
+
+    fun cancelOrder() {
+        sharedViewModel.resetOrder()
+        findNavController().navigate(R.id.action_flavorFragment_to_startFragment)
+    }
+
 }

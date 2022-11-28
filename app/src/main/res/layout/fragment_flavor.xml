@@ -59,6 +59,7 @@ to the onClick attribute for the buttons.-->
         <variable
             name="viewModel"
             type="com.example.cupcake.model.OrderViewModel" />
+
         <variable
             name="flavorFragment"
             type="com.example.cupcake.FlavorFragment" />
@@ -139,14 +140,27 @@ to the onClick attribute for the buttons.-->
 
             <TextView
                 android:id="@+id/subtotal"
-                android:text="@{@string/subtotal_price(viewModel.price)}"
                 style="@style/Widget.Cupcake.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/side_margin"
+                android:text="@{@string/subtotal_price(viewModel.price)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider"
                 tools:text="Subtotal $5.00" />
+
+            <Button
+                android:id="@+id/cancel_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                app:layout_constraintEnd_toStartOf="@id/next_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/next_button"
+                android:layout_marginEnd="@dimen/side_margin"
+                android:onClick="@{() -> flavorFragment.cancelOrder()}"
+                />
 
             <Button
                 android:id="@+id/next_button"
@@ -157,7 +171,7 @@ to the onClick attribute for the buttons.-->
                 android:text="@string/next"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cancel_button"
                 app:layout_constraintTop_toBottomOf="@id/subtotal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
